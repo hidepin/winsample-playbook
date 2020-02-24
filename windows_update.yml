@@ -1,0 +1,25 @@
+- name: Perform WIndows Update from Ansible
+  hosts: all
+  tasks:
+    - name: CHeck HotFix List Before Updating
+      win_shell: 'Get-WmiObject win32_quickfixengineering'
+      register: hotfix_before
+
+    - name: Show HotFix List Before Updating
+      debug:
+          msg: "{{ hotfix_before.stdout_lines }}"
+
+    - name: Run WIndows Update
+      win_updates:
+        category_name:
+          - SecurityUpdates
+        reboot: yes
+
+    - name: Check HotFix List After Updating
+      win_shell: 'Get-WmiObject win32_quickfixengineering'
+      register: hotfix_after
+
+    - name: Show HotFix List Sfter Updating
+      debug:
+          msg: "{{ hotfix_after.stdout_lines }}"
+

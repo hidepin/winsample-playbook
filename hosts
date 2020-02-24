@@ -1,0 +1,10 @@
+all:
+  children:
+    windows:
+      hosts:
+        host01:
+          ansible_user: IEUser
+          ansible_password: Passw0rd!
+          ansible_connection: winrm
+          ansible_winrm_transport: ntlm
+          ansible_winrm_server_cert_validation: ignore
